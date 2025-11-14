@@ -20,8 +20,11 @@ public class UsuarioController {
 
     @PostMapping
     public ResponseEntity<String> createUsuario(@RequestBody String usuario) {
-        usuarios.add(usuario);
-        return ResponseEntity.ok("Usuario creado: " + usuario);
+        if (usuario == null || usuario.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body("El nombre de usuario no puede estar vacío");
+        }
+        usuarios.add(usuario.trim());
+        return ResponseEntity.ok("Usuario creado exitosamente: " + usuario);
     }
 
     @PutMapping("/{index}")
